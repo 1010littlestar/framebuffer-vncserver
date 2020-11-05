@@ -131,6 +131,16 @@ static void cleanup_fb(void)
         close(fbfd);
         fbfd = -1;
     }
+
+    if (NULL != fbmmap) {
+        munmap(fbmmap, frame_size);
+        fbmmap = NULL;
+    }
+
+    if (NULL != fbbuf) {
+        free(fbbuf);
+        fbbuf = NULL;
+    }
 }
 
 static void keyevent(rfbBool down, rfbKeySym key, rfbClientPtr cl)
@@ -654,6 +664,13 @@ int main(int argc, char **argv)
     }
 
     info_print("Cleaning up...\n");
+
+    free(server->frameBuffer);
+    server->frameBuffer = NULL;
+    vncbuf = NULL;
+    rfbScreenCleanup(server);
+
+
     cleanup_fb();
     cleanup_kbd();
     cleanup_touch();
