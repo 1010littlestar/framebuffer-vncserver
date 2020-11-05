@@ -1,0 +1,9 @@
+[Unit]
+Description=framebuffer-vncserver
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/framebuffer-vncserver
+
+[Install]
+WantedBy=multi-user.target
