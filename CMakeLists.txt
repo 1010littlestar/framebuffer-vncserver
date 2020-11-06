@@ -3,7 +3,6 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 FILE(GLOB SOURCES src/*.c)
 ADD_EXECUTABLE(${PROJECT_NAME} ${SOURCES})
-INSTALL(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
 
 
 
@@ -80,7 +79,7 @@ set(CPACK_DEBIAN_PACKAGE_MAINTAINER "qiaosx@botech.com.cn")
 
 ##############debian/control设置完成了，下面设置控制脚本，动态库，changelog等
 install(FILES ${CMAKE_SOURCE_DIR}/framebuffer-vncserver.service DESTINATION /lib/systemd/system)
-install(FILES ${PROJECT_BINARY_DIR}/framebuffer-vncserver DESTINATION /usr/local/bin)
+install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION /usr/local/bin)
 
  #最后 别忘记最重要的  我们使用cpack工具来实现打包工作的
  include(CPack)
